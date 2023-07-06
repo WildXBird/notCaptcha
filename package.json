@@ -1,6 +1,6 @@
 {
   "name": "not-captcha",
-  "version": "0.0.2",
+  "version": "0.0.5",
   "description": "simple notCaptcha",
   "main": "./dist/cjs/main.js",
   "module": "./dist/csm/main.js",

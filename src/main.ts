@@ -2,12 +2,12 @@ import CryptoJSW from '@originjs/crypto-js-wasm';
 
 
 const init = async () => {
-    await CryptoJSW.SHA3.loadWasm();
+    await CryptoJSW.SHA256.loadWasm();
     console.log("loadWasm", "done")
 
 }
 const calc = async (str: string) => {
-    const rstHASH = CryptoJSW.SHA3(str).toString();
+    const rstHASH = CryptoJSW.SHA256(str).toString();
     return rstHASH
 }
 
@@ -25,8 +25,15 @@ type POWResult = {
     key: string;
 
 }
-export const resolvePOW = async (afterFix: string, answer: string, hideMessage?: boolean, timeout?: number):Promise<POWResult> => {
-    const complexity = parseInt(answer, 16)
+type ResolvePOWConfig = {
+    hideMessage?: boolean,
+    timeout?: number 
+}
+export const resolvePOW = async (afterFix: string, answer: string, config?: ResolvePOWConfig): Promise<POWResult> => {
+    const hideMessage = config?.hideMessage
+    const timeout = config?.timeout
+    const complexity = Math.pow(16, answer.length)
+    // const complexity = parseInt(answer, 16)
     console.log("complexity:", complexity)
 
     const standAnswer = answer.toLowerCase()
